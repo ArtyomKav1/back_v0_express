@@ -1,0 +1,28 @@
+{
+  "name": "back_v0_express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --inspect .\\dist\\index.js",
+    "watch": "tsc -W"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.5.2",
+  "dependencies": {
+    "@types/express": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "mongodb": "^6.15.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/node": "^22.14.1"
+  }
+}
