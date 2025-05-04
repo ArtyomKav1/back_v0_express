@@ -7,7 +7,8 @@
     "dev": "nodemon --inspect .\\dist\\index.js",
     "dev1": "nodemon  src/index.ts",
     "watch": "tsc -W",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
