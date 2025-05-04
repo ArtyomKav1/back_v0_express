@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
-import { academyRouter } from './routes/courses-router'
-import { academyCollection, runDb } from './repositiries/db'
+import { academyRouter, v1Router } from './routes/academy-router'
+import { runDb } from './repositiries/db'
 import cors from 'cors'
 
 const app = express()
@@ -12,34 +12,51 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.use(cors({
+    origin: 'http://localhost:5174', // Укажите адрес вашего фронтенда
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-// const jsonBodyMiddleware = express.json()
-// app.use(jsonBodyMiddleware)
+app.use(express.json())
+
+// const dataT = [
+//     {
+//         id: 1,
+//         dateCreate: "12:43",
+//         inform: {
+//             email: 'dsfsdf@gmai.com',
+//             name: 'art',
+//             Post: 'stud'
+//         }
+//     },
+//     {
+//         id: 2,
+//         dateCreate: "12:43",
+//         inform: {
+//             email: 'dsfsdf@gmai.com',
+//             name: 'art',
+//             Post: 'stud'
+//         }
+//     },
+//     {
+//         id: 3,
+//         dateCreate: "12:43",
+//         inform: {
+//             email: 'dsfsdf@gmai.com',
+//             name: 'art',
+//             Post: 'stud'
+//         }
+//     }
+// ]
+
+app.use('/academy', academyRouter)
+app.use('/v1', v1Router)
 
 
-
-// app.use('/academy', academyRouter)
-app.use('/academy', async (req, res) => {
-    const result = await academyCollection.findOne({}, { projection: { events: 1, _id: 0 }})
-    res.json(result.events);
-})
-app.use('/courses', async (req, res) => {
-    const result = await academyCollection.findOne({}, { projection: { courses: 1, _id: 0 } })
-    res.json(result.courses);
-})
-app.use('/tutors', async (req, res) => {
-    const result = await academyCollection.findOne({}, { projection: { tutors: 1, _id: 0 } })
-    res.json(result.tutors);
-})
-app.use('/ignoreDates', async (req, res) => {
-    const result = await academyCollection.findOne({}, { projection: { ignoreDates: 1, _id: 0 } })
-    res.json(result.ignoreDates);
-})
-
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello from Academy Server!');
-});
+// app.get('/', (req: Request, res: Response) => {
+//     res.send('Hello from Academy Server!');
+// });
 
 
 const startApp = async () => {

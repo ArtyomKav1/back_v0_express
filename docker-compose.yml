@@ -1,0 +1,17 @@
+backend:
+    build: 
+      context: ./backend  # Путь к папке с Dockerfile бэкенда
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"  # Порт вашего бэкенда
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://admin:534tg534dfget5663@mongodb:27017/academy_test?authSource=admin
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules

@@ -1,21 +1,21 @@
 // import { coursesCollection } from "./db"
 
 
-export type CoursesType = {
-    id: number
-    title: string
-}
+// export type CoursesType = {
+//     id: number
+//     title: string
+// }
 
-export const productsRepository = {
-    async findProducts(title: string | null | undefined) {
+// export const productsRepository = {
+//     async findProducts(title: string | null | undefined) {
 
-        let filter: any = {}
-        if (title) {
-            filter.title = { $regex: title }
-        }
-        // return coursesCollection.find(filter).toArray()
+//         let filter: any = {}
+//         if (title) {
+//             filter.title = { $regex: title }
+//         }
+//         // return coursesCollection.find(filter).toArray()
 
-    },
+//     },
 
 
 
@@ -48,4 +48,4 @@ export const productsRepository = {
     //     return result.deletedCount === 1
     // }
 
-}
+// }

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --inspect .\\dist\\index.js",
-    "watch": "tsc -W"
+    "dev1": "nodemon  src/index.ts",
+    "watch": "tsc -W",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

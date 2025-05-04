@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express"
+import { academyCollection, v1Collection } from "../repositiries/db"
 // import { body, validationResult } from "express-validator"
 // import { inputValidationMiddleware } from "../midleware/input-validation-middleware"
 // import { coursesService } from "../domain/courses-service"
@@ -22,14 +23,80 @@ export const academyRouter = Router()
 
 
 
-academyRouter.get('/academy',
-    // tilteValidation,
-    // inputValidationMiddleware,
-    async (req: Request, res: Response) => {
+// academyRouter.get('/academy',
+//     // tilteValidation,
+//     // inputValidationMiddleware,
+//     async (req: Request, res: Response) => {
 
-        // const foundCourses = await coursesService.findProducts(req.query.title?.toString())
-        res.json("ok")
-    })
+//         // const foundCourses = await coursesService.findProducts(req.query.title?.toString())
+//         res.json("ok")
+//     })
+
+
+academyRouter.get('/events', async (req: Request, res: Response) => {
+    const result = await academyCollection.findOne({}, { projection: { events: 1, _id: 0 } })
+    res.json(result?.events);
+})
+academyRouter.get('/courses', async (req: Request, res: Response) => {
+    const result = await academyCollection.findOne({}, { projection: { courses: 1, _id: 0 } })
+    res.json(result?.courses);
+})
+academyRouter.get('/tutors', async (req: Request, res: Response) => {
+    const result = await academyCollection.findOne({}, { projection: { tutors: 1, _id: 0 } })
+    res.json(result?.tutors);
+})
+academyRouter.get('/ignoreDates', async (req: Request, res: Response) => {
+    const result = await academyCollection.findOne({}, { projection: { ignoreDates: 1, _id: 0 } })
+    res.json(result?.ignoreDates);
+})
+
+
+
+
+
+
+export const v1Router = Router()
+
+v1Router.get('/', async (req: Request, res: Response) => {
+    try {
+        const result = await v1Collection.find().toArray()
+        res.status(201).json({ result });
+    } catch (error) {
+        res.status(500)
+        // .json(
+        //     { error: error?.message }
+        // );
+    }
+})
+
+v1Router.post('/', async (req: Request, res: Response) => {
+    try {
+        const { name, email, post } = req.body;
+        const user = {
+            name,
+            email,
+            post,
+            id: +(new Date().getTime()),
+            dateCreate: new Date()
+        }
+        await v1Collection.insertOne(user)
+        res.status(201).json({ message: 'User added successfully', user });
+    } catch (error) {
+        res.status(500)
+        // .json(
+        //     { error: error?.message }
+        // );
+    }
+})
+
+
+
+
+
+
+
+
+
 
 // coursesRouter.get('/courses/:id',
 //     async (req: Request, res: Response) => {
