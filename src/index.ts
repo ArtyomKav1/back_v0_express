@@ -54,9 +54,9 @@ app.use('/academy', academyRouter)
 app.use('/v1', v1Router)
 
 
-// app.get('/', (req: Request, res: Response) => {
-//     res.send('Hello from Academy Server!');
-// });
+app.get('/', (req: Request, res: Response) => {
+    res.send('Hello from Academy Server!');
+});
 
 
 const startApp = async () => {
