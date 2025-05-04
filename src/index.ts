@@ -7,27 +7,32 @@ const app = express()
 
 const port = process.env.PORT || 3000
 
-app.use(cors({
-    origin: 'http://localhost:5173', // Укажите адрес вашего фронтенда
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.use(cors({
-    origin: 'http://localhost:5174', // Укажите адрес вашего фронтенда
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.use(cors({
-    origin: 'http://personal-website.duckdns.org:8080/', // Укажите адрес вашего фронтенда
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.use(cors({
-    origin: 'http://personal-website.duckdns.org:8081/', // Укажите адрес вашего фронтенда
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://personal-website.duckdns.org:8080',
+    'http://personal-website.duckdns.org:8081',
+    'http://212.23.211.54:8080',
+    'http://212.23.211.54:8081'
+];
 
+app.use(cors({
+    origin: (origin, callback) => {
+        // Разрешаем запросы без origin (например, от мобильных приложений или Postman)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            const msg = `CORS policy: ${origin} not allowed`;
+            return callback(new Error(msg), false);
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,  // Если нужно передавать куки/авторизацию
+    optionsSuccessStatus: 200  // Для старых браузеров
+}));
 
 
 
