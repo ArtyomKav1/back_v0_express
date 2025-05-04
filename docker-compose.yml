@@ -9,4 +9,5 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - mongoURI=mongodb://admin:534tg534dfget5663@212.23.211.54:27017/myappdb?authSource=admin
     restart: unless-stopped
