@@ -4,7 +4,7 @@ FROM node:23 AS builder
 WORKDIR /app
 COPY package*.json ./
 COPY tsconfig*.json ./
-RUN npm ci  # Используем ci вместо i для production
+RUN npm i 
 
 COPY src ./src
 RUN npm run build
