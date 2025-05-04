@@ -17,6 +17,19 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.use(cors({
+    origin: 'http://personal-website.duckdns.org:8080/', // Укажите адрес вашего фронтенда
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(cors({
+    origin: 'http://personal-website.duckdns.org:8081/', // Укажите адрес вашего фронтенда
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+
+
 
 app.use(express.json())
 
