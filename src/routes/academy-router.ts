@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express"
-import { academyCollection, v1Collection } from "../repositiries/db"
+import { academyCollection, v1Collection, v2Collection } from "../repositiries/db"
 // import { body, validationResult } from "express-validator"
 // import { inputValidationMiddleware } from "../midleware/input-validation-middleware"
 // import { coursesService } from "../domain/courses-service"
@@ -89,7 +89,40 @@ v1Router.post('/', async (req: Request, res: Response) => {
     }
 })
 
+export const v2Router = Router()
 
+v2Router.get('/', async (req: Request, res: Response) => {
+    try {
+        const result = await v2Collection.find().toArray()
+        res.status(201).json({ result });
+    } catch (error) {
+        res.status(500)
+        // .json(
+        //     { error: error?.message }
+        // );
+    }
+})
+
+v2Router.post('/', async (req: Request, res: Response) => {
+    try {
+        const { name, company, number, message } = req.body;
+        const user = {
+            name,
+            company,
+            number,
+            message: message ? message : null,
+            id: +(new Date().getTime()),
+            dateCreate: new Date()
+        }
+        await v2Collection.insertOne(user)
+        res.status(201).json({ message: 'User added successfully', user });
+    } catch (error) {
+        res.status(500)
+        // .json(
+        //     { error: error?.message }
+        // );
+    }
+})
 
 
 

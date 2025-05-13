@@ -9,6 +9,7 @@ const db = client.db("academy_test")
 // console.log(db)
 export const academyCollection = db.collection("academy")
 export const v1Collection = db.collection("v1")
+export const v2Collection = db.collection("v2")
 // console.log(academyCollection)
 
 export async function runDb() {
