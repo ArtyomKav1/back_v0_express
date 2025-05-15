@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import { academyRouter, v1Router, v2Router } from './routes/academy-router'
+import { academyRouter, v1Router, v2Router, v4Router } from './routes/academy-router'
 import { runDb } from './repositiries/db'
 import cors from 'cors'
 
@@ -11,6 +11,7 @@ const allowedOrigins = [
     'http://212.23.211.54:8080',
     'http://212.23.211.54:8081',
     'http://localhost:8080',
+    "http://localhost:4321"
 ];
 app.use(cors({
     origin: (origin, callback) => {
@@ -35,7 +36,7 @@ app.use(express.json())
 app.use('/academy', academyRouter)
 app.use('/v1', v1Router)
 app.use('/v2', v2Router)
-
+app.use('/v4', v4Router)
 
 
 

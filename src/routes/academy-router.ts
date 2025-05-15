@@ -125,9 +125,40 @@ v2Router.post('/', async (req: Request, res: Response) => {
 })
 
 
+export const v4Router = Router()
 
+v4Router.get('/', async (req: Request, res: Response) => {
+    try {
+        const result = await v2Collection.find().toArray()
+        res.status(201).json({ result });
+    } catch (error) {
+        res.status(500)
+        // .json(
+        //     { error: error?.message }
+        // );
+    }
+})
 
-
+v4Router.post('/', async (req: Request, res: Response) => {
+    try {
+        const { name, company, number, email } = req.body;
+        const user = {
+            name,
+            company,
+            number,
+            email,
+            id: +(new Date().getTime()),
+            dateCreate: new Date()
+        }
+        await v2Collection.insertOne(user)
+        res.status(201).json({ message: 'User added successfully', user });
+    } catch (error) {
+        res.status(500)
+        // .json(
+        //     { error: error?.message }
+        // );
+    }
+})
 
 
 
